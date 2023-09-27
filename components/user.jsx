@@ -2,16 +2,19 @@ function ToStringObj(obj)
 {
   let str="";
 
-  if(obj!=0)  
-   {
-     if(Object.keys(obj)[0]!=0 )
+  if(obj!==0)  
+   { 
+     if(( Object.keys(obj)==0) || (Object.keys(obj)[0]=0 ))
      {
-        Object.keys(obj).forEach(k=> str=str.concat(k,":",obj[k]," "));
+        str=obj;
      }
-     else str=obj;
+     else 
+      {Object.keys(obj).forEach(k=> str=str.concat(k,":",obj[k]," "));
+        
+      }
     }
   return str;
-}
+ }
 
 export function User({user}) 
 {
