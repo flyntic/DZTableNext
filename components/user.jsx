@@ -4,7 +4,7 @@ function ToStringObj(obj)
 
   if(obj!==0)  
    { 
-     if(( Object.keys(obj)==0) || (Object.keys(obj)[0]=0 ))
+     if(( Object.keys(obj)==0) || (Object.keys(obj)[0]==0 ))
      {
         str=obj;
      }
