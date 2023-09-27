@@ -1,9 +1,7 @@
-import {FetchUsers,Columns} from "../components/fetchUsers";
+import FetchUsers from "../components/fetchUsers";
 export default function Users(){
     return <>
-        <h1>Таблица пользователей</h1>
-        <table>       
+        <h1>Таблица пользователей</h1>        
         <FetchUsers/>
-        </table>
         </>;
   }

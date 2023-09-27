@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import {User} from './user';
-import {UserColumns } from "./UserColumns";
 import Spinner from './Spinner';
+import TableUsers from './tableUsers';
 
 
-export function FetchUsers() {
+export default function FetchUsers() {
   const
     [users, setUsers] = useState(null),
     [error, setError] = useState(null);
@@ -23,17 +22,15 @@ export function FetchUsers() {
     }
     f();
   }, []);
-console.log(users);
+
 
 if (error) return <h2 style={{ color: 'red' }}>{error.toString()}</h2>;
 if (users)
 { 
-  return(
-    <>
-      <UserColumns user={users[0]}/>    
-      { users.map(user=><User key={user.id}  user={user}/>)}    
-    </>
-    );
+  console.log(users);
+  //var _users=users.map((user,index)=>{key:index,user});
+  //console.log(_users);
+  return (<TableUsers Users={users}/>);
 } 
 return <Spinner/>;
-};
+}
