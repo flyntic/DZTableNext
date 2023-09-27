@@ -1,6 +1,6 @@
-export function User({ user }) 
+export function User({user}) 
 {
-const  
+/*const  
 { id, name, username, email,
     address: { street, suite, city, zipcode, geo: { lat, lng } },
     phone, website,
@@ -9,27 +9,22 @@ const
       catchPhrase,
       bs
     }
-  } = user;
+  } = user;*/
+
+  let cols=[ ];
+    for (var i in user) {
+      if (user.hasOwnProperty(i)) {
+        cols.push({colname:i,value:user[i]});
+      }
+    }
+  console.log(cols);
   return (
     <>
-      <tr>
-      <td> <legend>#{id} {username}</legend> </td>
-       <td> <h3>{name}</h3></td>
-       <td> <span> 📧<a href={`mailto:${email}`}>{email}</a>📞<a href={`tel:${phone}`}>{phone}</a></span></td>
-       <td> <span>🌐<a href={`http://${website}`}>{website}</a></span></td>
-       <td> <span title={zipcode}><a href={`https://maps.google.com/maps?ll=${lat},${lng}`}>{street},{suite},{city}</a></span></td>
-       <td> <span><b>{cname}</b><br />{catchPhrase}<br />{bs}</span> </td>
-      </tr>
+    <tr>
+        { 
+          cols.map(i=><td ClassName={i.colname}>{i.value}</td>)
+        }      
+      </tr> 
     </>
   );
 };
-
-export function UserColumns() 
-{const cols=[ 
-   "name", "username", "email",
-    "address",
-    "phone", "website",
-    "company"];
-    return cols;
-  
-}

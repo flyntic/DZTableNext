@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import {User,UserColumns} from './user';
+import {User} from './user';
+import {UserColumns } from "./UserColumns";
 import Spinner from './Spinner';
 
 
@@ -22,18 +23,17 @@ export function FetchUsers() {
     }
     f();
   }, []);
-
+console.log(users);
 
 if (error) return <h2 style={{ color: 'red' }}>{error.toString()}</h2>;
 if (users)
 { 
-  return <>{users.map(user=><User user={user} />)}</>;
+  return(
+    <>
+      <UserColumns user={users[0]}/>    
+      { users.map(user=><User key={user.id}  user={user}/>)}    
+    </>
+    );
 } 
 return <Spinner/>;
-}
-
-export function Columns()
-{ 
-  return UserColumns().map(col=><th>{col}</th>);
-  //User.arguments.map(col=><th>{col}</th>);
-}
+};
