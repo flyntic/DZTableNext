@@ -9,7 +9,7 @@ export function UserColumns({ user }) {
  
   return (
     <>
-     {cols.map(col => <th>{col.value}</th>)}
+     {cols.map((col, index) => <th key={index}>{col.value}</th>)}
     </>
   );
 
