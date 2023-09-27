@@ -1,12 +1,27 @@
+function ToStringObj(obj)
+{
+  let str="";
+
+  if(obj!=0)  
+   {
+     if(Object.keys(obj)[0]!=0 )
+     {
+        Object.keys(obj).forEach(k=> str=str.concat(k,":",obj[k]," "));
+     }
+     else str=obj;
+    }
+  return str;
+}
+
 export function User({user}) 
 {
   let cols=[ ];
-    for (var i in user) {
-      if (user[i]) {
-        cols.push({colname:i,value:user[i]});
-      }
-    }
-  //console.log(cols);
+  if(user)
+      Object.keys(user).forEach(k => 
+        {
+          let value=ToStringObj(user[k]);
+          cols.push({colname:k, value:value});
+         } );
   return (
     <>
     <tr>
