@@ -2,7 +2,7 @@ export function User({user})
 {
   let cols=[ ];
     for (var i in user) {
-      if (user.hasOwnProperty(i)) {
+      if (user[i]) {
         cols.push({colname:i,value:user[i]});
       }
     }
