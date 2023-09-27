@@ -1,16 +1,14 @@
-
 export function UserColumns({ user }) {
-  var cols = [];
-  for (var i in user) {
-    if (user[i]) {
-      cols.push({key:cols.length,value:i});
-    }
-  }
+  let cols = [];
+  Object.keys(user).forEach(k=>cols.push(k));
+     
+  console.log(cols);
  
   return (
     <>
-     {cols.map((col, index) => <th key={index}>{col.value}</th>)}
+     {cols.map((col,index) => <th key={index}>{col}</th>)}
     </>
   );
 
 }
+
