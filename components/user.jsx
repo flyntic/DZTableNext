@@ -1,35 +1,71 @@
-export function User({ user }) 
+function ToStringObj(obj)
 {
-const  
-{ id, name, username, email,
-    address: { street, suite, city, zipcode, geo: { lat, lng } },
-    phone, website,
-    company: {
-      name: cname,
-      catchPhrase,
-      bs
+  let str="";
+
+  if(obj!==0)  
+   { 
+     if(( Object.keys(obj)==0) || (Object.keys(obj)[0]==0 ))
+     {
+        str=obj;
+     }
+     else 
+      {Object.keys(obj).forEach(k=> str=str.concat(k,":",obj[k]," "));
+        
+      }
     }
-  } = user;
+  return str;
+ }
+
+export function User({user,Actions}) 
+{
+  let cols=[ ];
+  const indexEdit=Actions.GetIndexEdit();
+  if(user==null) return <></>;
+  else
+  Object.keys(user)?.forEach(k => 
+        {
+          let value=ToStringObj(user[k]);
+          cols.push({colname:k, value:value});
+         } );
+   console.log(Actions);   
+  if (user.id==indexEdit)
   return (
     <>
-      <tr>
-      <td> <legend>#{id} {username}</legend> </td>
-       <td> <h3>{name}</h3></td>
-       <td> <span> 📧<a href={`mailto:${email}`}>{email}</a>📞<a href={`tel:${phone}`}>{phone}</a></span></td>
-       <td> <span>🌐<a href={`http://${website}`}>{website}</a></span></td>
-       <td> <span title={zipcode}><a href={`https://maps.google.com/maps?ll=${lat},${lng}`}>{street},{suite},{city}</a></span></td>
-       <td> <span><b>{cname}</b><br />{catchPhrase}<br />{bs}</span> </td>
-      </tr>
+    <tr>
+        { 
+           cols.map(
+              (i)=> 
+                   <td><input type="text" value={user[i.colname]} class="editing"
+                     onChange={(evt)=>{user[i.colname]=evt.target.value;Actions.Save(user)}}/> </td>
+           )
+        } 
+        <td>
+           <input type="button" title="Сохранить"  value="Сохранить" onClick={() =>   Actions.SetIndexSave(user.id) }/>
+        </td>  
+        <td>
+           <input type="button" title="Отменить"  value="Отменить" onClick={() =>  Actions.SetIndexSave(-1) }/>
+        </td>  
+      </tr> 
     </>
   );
-};
+  else
 
-export function UserColumns() 
-{const cols=[ 
-   "name", "username", "email",
-    "address",
-    "phone", "website",
-    "company"];
-    return cols;
+  return (
+    <>
+    <tr>
+      
+        { 
+           cols.map((i)=> <td ClassName={i.colname} >{i.value}</td>)
+        } 
+        <td>
+          <input type="button" title="Удалить" value="Удалить" onClick={(evt,val=user.id) =>  Actions.SetIndexDel(user.id) }/>
+        </td>     
+        <td>
+          <input type="button" title="Редактировать"  value="Редактировать" onClick={(evt,val=user.id) =>  Actions.SetIndexEdit(user.id)}/>
+        </td>  
+      </tr> 
+    </>
+  );
+     
   
-}
+};

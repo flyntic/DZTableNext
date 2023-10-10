@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import {User,UserColumns} from './user';
 import Spinner from './Spinner';
+import TableUsers from './tableUsers';
 
 
-export function FetchUsers() {
+export default function FetchUsers() {
   const
     [users, setUsers] = useState(null),
     [error, setError] = useState(null);
@@ -27,13 +27,8 @@ export function FetchUsers() {
 if (error) return <h2 style={{ color: 'red' }}>{error.toString()}</h2>;
 if (users)
 { 
-  return <>{users.map(user=><User user={user} />)}</>;
+  console.log(users);
+  return (<TableUsers Users={users}/>);
 } 
 return <Spinner/>;
-}
-
-export function Columns()
-{ 
-  return UserColumns().map(col=><th>{col}</th>);
-  //User.arguments.map(col=><th>{col}</th>);
 }

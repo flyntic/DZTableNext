@@ -38,3 +38,22 @@
   header ul li{
     padding-right: 20px;
   }
+  table
+  {
+    border: 1px solid;
+  }
+
+  table th
+  {
+    border:1px solid;
+  }
+ 
+  table td
+  {
+    border:1px solid;
+  }
+ 
+input.editing
+{
+  background-color:aquamarine;
+}
