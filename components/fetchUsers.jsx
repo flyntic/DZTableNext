@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import Spinner from './Spinner';
 import TableUsers from './tableUsers';
-
+import UserActions from './UserActions';
 
 export default function FetchUsers() {
   const
-    [users, setUsers] = useState(null),
-    [error, setError] = useState(null);
-
+    [users, setUsers] = useState(null),          
+    [error, setError] = useState(null),
+    Actions= UserActions(users,setUsers); 
+  
   useEffect(() => {
     async function f() {
       try {
@@ -28,12 +29,7 @@ if (error) return <h2 style={{ color: 'red' }}>{error.toString()}</h2>;
 if (users)
 { 
   console.log(users);
-<<<<<<< HEAD
-=======
-  //var _users=users.map((user,index)=>{key:index,user});
-  //console.log(_users);
->>>>>>> dba8acd2d78088f32a47e010737cee0657ecd905
-  return (<TableUsers Users={users}/>);
+  return (<TableUsers Users={users} Actions={Actions}/>);
 } 
 return <Spinner/>;
 }
