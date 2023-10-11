@@ -3,15 +3,13 @@ import {User} from "./user";
 
 
 export default function TableUsers({Users,Actions})
-{    console.log(Users);
-    if(Users && Users[0]) 
+{   
+    if(Users && Users[0]&&Array.isArray(Users)) 
       return (<table>   
           <UserColumns user={Users[0]}  Actions={Actions}/>  
           {Users.map((user)=> 
              <User key={user.id}  user={user} 
                    Actions={Actions}
-                  
-                   
             />)}                     
 
       </table>);

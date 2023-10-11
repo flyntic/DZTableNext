@@ -11,7 +11,7 @@ export function UserColumns({ user,Actions }) {
     <>
      {cols.map((col,index) => 
      <th key={index}>
-        <input type="button" value={col} onClick={(evt,index)=>{Actions.SetFilter(index);}}/>
+        <input type="button" value={col} onClick={(evt,_index=index)=>{ Actions.SetFilter(_index+1);}}/>
      </th>)}
     </>
   );

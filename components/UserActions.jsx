@@ -1,21 +1,18 @@
 import {useState,useEffect} from 'react';
-function Compare(a,b,i)
-{
-  if (i>0)
-  {
-    if(a[i]>b[i]) return 1;
-    if(a[i]==b[i]) return 0;
-    if(a[i]<b[i]) return -1;
-  }
-  if (i<0)
-  {
-    if(a[i]>b[i]) return -1;
-    if(a[i]==b[i]) return 0;
-    if(a[i]<b[i]) return 1;
-  }
+function CompareOb(a,b,i)
+{ 
+  
+  const key=((i)>0)?Object.keys(a)[i-1]:Object.keys(a)[-(i+1)];  
+  
+  i=(i>0) ? 1 : -1;
+ 
+    if(a[key]>b[key]) return i;
+    if(a[key]==b[key]) return 0;
+    if(a[key]<b[key])   return -i;
+ 
   return 0;
 }
-export default function UserActions(Users,setUsers)
+export default function UserActions(Users,setUsers,getUsers)
 {
     const
     [indexSave,setIndexSave]=useState(0),
@@ -34,6 +31,7 @@ export default function UserActions(Users,setUsers)
             const _Users=[...Users];
             _Users[_Users.indexOf(u=>u.id==_user.id)]=_user; 
             setIndexEdit(_user.id);
+            setIndexSave(0);
             setUsers(_Users); 
             console.log("edit"+userEdit)
         }
@@ -51,31 +49,40 @@ export default function UserActions(Users,setUsers)
 
     useEffect(() => {
         function f() {
-          console.log("index"+indexEdit);
-          //const _Users=[...Users];
-          setUsers(Users); 
-          if (indexEdit!=-1)
-              { 
-                const user=Users.filter(us=>us.id==indexEdit)[0]
-                //console.log(user)
-                setUserEdit(user)
-                console.log(userEdit)
+            if(Users && Users[0]&&Array.isArray(Users)) 
+            {
+                const _Users=[...Users];;
+                setUsers(_Users); 
+                if (indexEdit!=-1)
+                    { 
+                        const user=Object.assign({}, Users.filter(us=>us.id==indexEdit)[0]);
+                        setUserEdit(user)
+                       
+                    }
             }
-          else  setUserEdit(null);
-    } 
+        }
     f();
     }, [indexEdit]);
 
     useEffect(() => {
     function f() {
+        
+        if (indexSave==0)
+         return;      
+        const _Users=[...Users];
+
         if (indexSave==-1)
-        { const index=Users.indexOf(u=>u.id==userEdit.id);
-          Users[index]=userEdit; 
-          console.log("Отмена");
+        { 
+          const _Users=Users.map(u=>{ if (u.id==userEdit.id) return userEdit; return u; });
+          setUsers(_Users); 
+          console.log(userEdit);          
         }
-        else    console.log("Сохранение");
-      //  const _Users=[...Users];
-        setUsers(Users); 
+        else{
+            const _Users=[...Users];
+            setUsers(_Users); 
+        }
+        
+        
         setIndexEdit(-1);
     }
     f();
@@ -83,17 +90,16 @@ export default function UserActions(Users,setUsers)
 
     useEffect(() => {
         function f() {
-            if (filter>0)
-            { //const index=Users.indexOf(u=>u.id==userEdit.id);
-             // Users[index]=userEdit; 
-             // console.log("Отмена");
-             setUsers(Users.sort(
-                (a,b)=>{return Compare(a,b,filter);}));
+            if(Users && Users[0]&&Array.isArray(Users)) 
+            {
+                const _Users= [...Users];
+                _Users.sort((a,b)=>{return CompareOb(a,b,filter);});
+                setUsers(_Users);
+                console.log("Сортировка 1055 ",Users);
             }
-            else    console.log("Сохранение");
-          //  const _Users=[...Users];
-            setUsers(Users); 
-            setIndexEdit(-1);
+            
+
+             setIndexEdit(-1);
         }
         f();
         }, [filter]);

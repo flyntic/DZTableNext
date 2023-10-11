@@ -56,6 +56,5 @@ input.editing
 input[type="button"] {
   border:none;
   width:140px;
-  //background-color: red;
   vertical-align: bottom;
 }

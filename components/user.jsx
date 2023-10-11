@@ -20,30 +20,32 @@ function ToStringObj(obj)
 export function User({user,Actions}) 
 {
   let cols=[ ];
+  let index=0;
   const indexEdit=Actions.GetIndexEdit();
   if(user==null) return <></>;
-  else
-  Object.keys(user)?.forEach(k => 
-        {
-          let value=ToStringObj(user[k]);
-          cols.push({colname:k, value:value});
-         } );
+  const keys= Object.keys(user);
 
-   console.log(Actions);   
+  for (let i=0;i<keys.length;i++) 
+        {
+          let value=ToStringObj(user[keys[i]]);    
+          console.log(value);      
+          cols.push({index:i, colname:keys[i], value:value});
+         } ;
+
+  // console.log(Actions);   
   if (user.id==indexEdit)
   return (
     <>
     <tr>
-        { 
-
-           cols.map(
-              (i)=> 
-                   <td><input type="text" value={user[i.colname]} class="editing"
-                     onChange={(evt)=>{user[i.colname]=evt.target.value;Actions.Save(user)}}/> </td>
-           )
-        } 
+      {
+         cols.map((i)=> { if(i.index!=0)
+          {  <td><input type="text" value={user[i.colname]} class="editing"
+                               onChange={(evt)=>{user[i.colname]=evt.target.value;Actions.Save(user)}}/> </td>     } 
+             else  <td ClassName={i.colname} >{i.value}</td>
+              })
+            }
         <td>
-           <input type="button" title="Сохранить"  value="Сохранить" onClick={() =>   Actions.SetIndexSave(user.id) }/>
+           <input type="button" title="Сохранить"  value="Сохранить" onClick={() =>   Actions.SetIndexSave(1) }/>
         </td>  
         <td>
            <input type="button" title="Отменить"  value="Отменить" onClick={() =>  Actions.SetIndexSave(-1) }/>
