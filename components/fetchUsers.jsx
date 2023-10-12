@@ -27,8 +27,7 @@ export default function FetchUsers() {
 
 if (error) return <h2 style={{ color: 'red' }}>{error.toString()}</h2>;
 if (users)
-{ 
-  console.log(users);
+{
   return (<TableUsers Users={users} Actions={Actions}/>);
 } 
 return <Spinner/>;
