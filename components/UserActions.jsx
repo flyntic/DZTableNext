@@ -12,7 +12,7 @@ function CompareOb(a,b,i)
  
   return 0;
 }
-export default function UserActions(Users,setUsers,getUsers)
+export default function UserActions(Users,setUsers)
 {
     const
     [indexSave,setIndexSave]=useState(0),
