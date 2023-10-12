@@ -5,9 +5,9 @@ import {useState,useEffect} from 'react';
 
 export default function UsersStatic( {propsUsers}){
    const [Users,setUsers]=useState(propsUsers),  
-          getUsers=()=> [...Users],      
-          Actions= UserActions(Users,setUsers,getUsers) ;
-          console.log(Actions);
+           
+          Actions= UserActions(Users,setUsers) ;
+          
    
     return (<>
         <h1>Таблица статических пользователей</h1>
