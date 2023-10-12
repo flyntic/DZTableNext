@@ -19,9 +19,10 @@ export default function UsersStatic( {propsUsers}){
 
 export function getStaticProps(){
     const propsUsers=[
-        {id:1,name:"iqwope",   address:"sdasd"},
-        {id:2,name:"i452qwope",address:"s242dasd"}
+        {id:1,name:"iqwope",   address:{city:"sdasd",street:"dsfsd"}},
+        {id:2,name:"i452qwope",address:{city:"sdasd",street:"dsfsd"}}
     ];
    
     return {props:{propsUsers}}
   }
+
